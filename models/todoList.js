@@ -23,7 +23,7 @@ export class TodoList {
         }
     };
 
-    filterTaskInProgress(status) {
+    filterTaskInProgress() {
         return this.arr.filter((task) => {
             if (task.status === "inProgress") {
                 return true
@@ -32,7 +32,7 @@ export class TodoList {
         })
     }
 
-    filterTaskComp(status) {
+    filterTaskComp() {
         return this.arr.filter((task) => {
             if (task.status === "complete") {
                 return true
@@ -41,9 +41,27 @@ export class TodoList {
         })
     }
 
-    updateItem(task) {
+    updateTask(task) {
         this.arr = this.arr.map(ele => {
             return ele.taskName === task.taskName ? task : ele
         })
     };
+
+    sortTaskAsc() {
+        this.arr.sort((task, nextTask) => {
+            if (task.taskName > nextTask.taskName) {
+                return 1
+            }
+            return -1
+        });
+    }
+
+    sortTaskDec() {
+        this.arr.sort((task, nextTask) => {
+            if (task.taskName < nextTask.taskName) {
+                return 1
+            }
+            return -1
+        });
+    }
 }

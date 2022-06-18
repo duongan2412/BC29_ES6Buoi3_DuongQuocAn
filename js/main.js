@@ -5,20 +5,36 @@ const todoList = new TodoList();
 
 const getEle = (id) => document.getElementById(id);
 
-const renderTask = () => {
-    const content = todoList.arr.reduce((total, value) => {
+const renderTaskInProress = () => {
+    const content = todoList.filterTaskInProgress().reduce((total, value) => {
         total += `
             <li class="d-flex">
                 <p>${value.taskName}</p>
                 <div class="buttons">
-                    <span class="fas fa-trash remove" onclick="removeTask('${value.taskName}')"></span>
-                    <span class="fas fa-check-circle complete onclick="completeTask('${value.taskName}')"></span>
+                    <span class="far fa-trash-alt remove" onclick="removeTask('${value.taskName}')"></span>
+                    <span class="fas fa-check-circle complete" complete onclick="completeTask('${value.taskName}')"></span>
                 </div>
             </li>   
         `
         return total
     }, "");
     getEle("todo").innerHTML = content;
+}
+
+const renderTaskComplete = () => {
+    const content = todoList.filterTaskComp().reduce((total, value) => {
+        total += `
+            <li class="d-flex">
+                <p>${value.taskName}</p>
+                <div class="buttons">
+                    <span class="far fa-trash-alt remove" onclick="removeTask('${value.taskName}')"></span>
+                    <span class="fas fa-check-circle complete")"></span>
+                </div>
+            </li>   
+        `
+        return total
+    }, "");
+    getEle("completed").innerHTML = content;
 }
 
 getEle("addItem").onclick = () => {
@@ -29,16 +45,34 @@ getEle("addItem").onclick = () => {
     }
     const task = new Todo(nameTask, "inProgress");
     todoList.addTask(task);
-    renderTask();
+    renderTaskInProress();
+    renderTaskComplete();
     getEle("newTask").value = "";
 }
 
 window.removeTask = (task) => {
     todoList.deleteTask(task);
-    renderTask();
+    renderTaskInProress();
+    renderTaskComplete();
 }
 
 window.completeTask = (task) => {
-
+    todoList.arr.forEach((ele) => {
+        if (ele.taskName === task) {
+            ele.status = "complete";
+        }
+    })
+    renderTaskInProress();
+    renderTaskComplete();
 }
-// tạo thêm arr complete
+
+
+getEle("two").onclick = () => {
+    todoList.sortTaskAsc();
+    renderTaskInProress();
+}
+
+getEle("three").onclick = () => {
+    todoList.sortTaskDec();
+    renderTaskInProress();
+}

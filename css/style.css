@@ -300,6 +300,7 @@ ul.todo li .buttons button {
 
 ul.todo li .buttons .remove {
   color: #aaa;
+  cursor: pointer;
 }
 
 ul.todo li .buttons .remove:hover {
@@ -308,7 +309,7 @@ ul.todo li .buttons .remove:hover {
 
 ul.todo li .buttons .complete {
   color: #aaa;
-
+  cursor: pointer;
 }
 
 ul.todo li .buttons .complete:hover {
@@ -330,6 +331,11 @@ ul.todo#completed li .buttons .complete .fas {
 
 ul.todo#completed li .buttons .complete .far {
   display: none;
+}
+
+ul.todo#completed li .buttons .far.remove {
+  display: inline-block;
+  color: #aaa;
 }
 
 ul.todo#completed span {
